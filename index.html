@@ -1,0 +1,275 @@
+```html id="c9m2vx"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dot.color — Pre-order</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #343434;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .intro {
+      position: fixed;
+      inset: 0;
+      background: #343434;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      animation: introFade 1.8s ease forwards;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .circle-big {
+      width: 85px;
+      height: 85px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .circle-small {
+      width: 42px;
+      height: 42px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    @keyframes introFade {
+      0% {
+        opacity: 1;
+      }
+
+      70% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .content {
+      width: 100%;
+      max-width: 430px;
+      text-align: center;
+    }
+
+    .main-logo {
+      justify-content: center;
+      margin-bottom: 55px;
+    }
+
+    .main-logo .circle-big {
+      width: 105px;
+      height: 105px;
+    }
+
+    .main-logo .circle-small {
+      width: 52px;
+      height: 52px;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      height: 54px;
+      border: 1px solid rgba(255,255,255,0.5);
+      background: transparent;
+      color: white;
+      padding: 0 17px;
+      font-size: 15px;
+      outline: none;
+      border-radius: 0;
+    }
+
+    input::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+
+    select {
+      appearance: none;
+      cursor: pointer;
+    }
+
+    select option {
+      color: black;
+    }
+
+    button {
+      width: 100%;
+      height: 54px;
+      margin-top: 10px;
+      border: 1px solid white;
+      background: white;
+      color: #343434;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: transparent;
+      color: white;
+    }
+
+    .success {
+      display: none;
+      font-size: 15px;
+      letter-spacing: 2px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 500px) {
+      .main-logo {
+        margin-bottom: 42px;
+      }
+
+      .main-logo .circle-big {
+        width: 85px;
+        height: 85px;
+      }
+
+      .main-logo .circle-small {
+        width: 42px;
+        height: 42px;
+      }
+
+      .content {
+        max-width: 340px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- INTRO -->
+  <div class="intro">
+    <div class="logo">
+      <div class="circle-big"></div>
+      <div class="circle-small"></div>
+    </div>
+  </div>
+
+  <!-- MAIN PAGE -->
+  <main class="page">
+    <div class="content">
+
+      <!-- LOGO -->
+      <div class="logo main-logo">
+        <div class="circle-big"></div>
+        <div class="circle-small"></div>
+      </div>
+
+      <!-- FORM -->
+      <form
+        class="form"
+        id="preorderForm"
+        action="https://formspree.io/f/xrpeeeqq"
+        method="POST"
+      >
+
+        <input
+          type="text"
+          name="name"
+          placeholder="NAME"
+          required
+        >
+
+        <input
+          type="email"
+          name="email"
+          placeholder="EMAIL"
+          required
+        >
+
+        <select name="size" required>
+          <option value="" disabled selected>SIZE</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+        </select>
+
+        <button type="submit">
+          JOIN PRE-ORDER
+        </button>
+
+      </form>
+
+      <!-- SUCCESS MESSAGE -->
+      <div class="success" id="success">
+        YOU'RE IN.
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById("preorderForm");
+    const success = document.getElementById("success");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Accept": "application/json"
+          }
+        });
+
+        if (response.ok) {
+          form.style.display = "none";
+          success.style.display = "block";
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
+
+      } catch (error) {
+        alert("Something went wrong. Please try again.");
+      }
+    });
+  </script>
+
+</body>
+</html>
+```
